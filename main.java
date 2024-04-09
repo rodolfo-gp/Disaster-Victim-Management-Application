@@ -1,6 +1,6 @@
-
+import java.util.Scanner;
 import java.sql.*;
-
+import edu.ucalgary.oop.*;
 public class main {
 
 	public static String DBURL;
@@ -9,6 +9,10 @@ public class main {
 	
 	public static Connection dbConnect;
 	public static ResultSet results;
+
+	public static boolean central;
+	public static boolean local;
+	public static Location location;
 
     public static void set_DB_info(String url, String user, String pw){
 		// Database URL
@@ -135,16 +139,80 @@ public class main {
 		return -1;
 		
 	}
+	public static void shoMainMenu(){
+		System.out.println("What do you want to do?");
+		System.out.println("1. add Disaster Victms");
+		System.out.println("2. Show disaster victims");
+		System.out.println("3. add supply to location");
+		System.out.println("4. add belonings to victim");
+		System.out.println("5. Inquire search");
+		System.out.println("6. Inquire Creation");
+		System.out.println("7. Inquiry_log search");
+		System.out.println("8. Inquiry_log Creation");
+		System.err.println("0. Exit Program");
+	}
+	public static String makeSelection(){
+		Scanner scanner = new Scanner(System.in);
+		// System.out.print("Selection: ");
+        String input = scanner.nextLine();
+		scanner.close();
+		return input;
+
+	}
+	public static void showReliefeWorkerLocations(){
+		System.out.println("1. central worker");
+		System.out.println("2. local worker");
+	}
 	////////////////////////////////////////////////////////MAIN////////////////////////////////////////////////////////
 	    public static void main(String[] args) {
         set_DB_info("jdbc:postgresql://localhost/ensf380project","oop","ucalgary");
         initializeConnection();
-        
-		int boo = insertInquirer(11, "Rodolfo", "Gil", 0);
-		String data = selectAllNames("inquirylog");
-        System.out.println(data);
-		System.out.println(boo);
-		
-    }
-    
+
+        String input;
+		System.out.println("-------Welcom Relief worker. What do you want to do?-------");
+		showReliefeWorkerLocations();
+		System.out.print("selection: ");
+		input = makeSelection();
+		if (input == "1") {
+			central = true;
+			local = false;
+			location = null;
+			System.err.println("what location do you wish to work with?");
+			System.err.print("Location name: ");
+			String locName = makeSelection();
+			System.out.print("Location Address: ");
+			String locAddress = makeSelection();
+			location = new Location(locName, locAddress);
+
+		}else if (input == "2") {
+			central = false;
+			local = true;
+			System.err.println("what location are you from?");
+			System.err.print("Location name: ");
+			String locName = makeSelection();
+			System.out.print("Location Address: ");
+			String locAddress = makeSelection();
+			location = new Location(locName, locAddress);
+		}
+		while (input != "0") {
+			shoMainMenu();
+			System.out.println("selection: ");
+			input = makeSelection();
+
+			switch (input) {
+				case "1":
+					
+					break;
+				case "2":
+
+					 break;
+			
+				default:
+					System.out.println("Invalid choice. Input valid option.");
+					break;
+			}
+			
+		}
+		System.out.println("program ended :)");
+    }  
 }
