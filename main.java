@@ -35,6 +35,8 @@ public class main {
 			dbConnect = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
 			System.out.println("Database connection established successfully.");
 		} catch (SQLException e) {
+			System.out.println("Could not connect to: " + DBURL);
+			System.out.println("Username: " + USERNAME);
 			System.err.println("Failed to connect to the database: " + e.getMessage());
 		}
 	}
