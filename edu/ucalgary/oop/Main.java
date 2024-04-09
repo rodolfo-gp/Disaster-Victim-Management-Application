@@ -1,10 +1,10 @@
-import edu.ucalgary.oop.*;
+package edu.ucalgary.oop;
 import java.util.Scanner;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
 
-public class main {
+public class Main {
 
 	public static String DBURL;
 	public static String USERNAME;
