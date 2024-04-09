@@ -1,6 +1,9 @@
+import edu.ucalgary.oop.*;
 import java.util.Scanner;
 import java.sql.*;
-import edu.ucalgary.oop.*;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
+
 public class main {
 
 	public static String DBURL;
@@ -13,6 +16,12 @@ public class main {
 	public static boolean central;
 	public static boolean local;
 	public static Location location;
+
+	public static DisasterVictim currentDisasterVictim = null;
+	public static Inquirer currenInquirer; 
+	public static int inquirerID;
+	public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	public static Date sqlDate = null;
 
     public static void set_DB_info(String url, String user, String pw){
 		// Database URL
@@ -115,7 +124,7 @@ public class main {
 		return validIquirer;
 
 	}
-	public static int insertInquirer(int id, String fName, String lName, int phoneNum) {
+	public static int insertInquirer(int id, String fName, String lName, String phoneNum) {
 		if (validateInquirer(fName, lName)) {
 			System.out.println("Inquirer Already Exists");
 			return 0;
@@ -127,7 +136,7 @@ public class main {
 			statement.setInt(1, id);
 			statement.setString(2, fName);
 			statement.setString(3, lName);
-			statement.setInt(4, phoneNum);
+			statement.setString(4, phoneNum);
 			statement.executeUpdate();
 			statement.close();
 			System.out.println("Inquirer Succesfully Created");
@@ -139,23 +148,42 @@ public class main {
 		return -1;
 		
 	}
-	public static void shoMainMenu(){
+	public static int insertInquiry_Log(int inquiryLogID, int inquirerID, Date callDate, String details){
+		try {
+			// Prepare and execute the SQL query
+			String query = "INSERT INTO INQUIRY_LOG (id, inquirer, callDate, details) VALUES (?, ?, ?, ?)";
+			PreparedStatement statement = dbConnect.prepareStatement(query);
+			statement.setInt(1, inquiryLogID);
+			statement.setInt(2, inquirerID);
+			statement.setDate(3, callDate);
+			statement.setString(4, details);
+			statement.executeUpdate();
+			statement.close();
+			System.out.println("\nInquirer Log Succesfully Created");
+			return 1;
+		} 
+		catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return -1;
+		
+	}
+	public static void showMainMenu(){
 		System.out.println("What do you want to do?");
 		System.out.println("1. add Disaster Victms");
 		System.out.println("2. Show disaster victims");
 		System.out.println("3. add supply to location");
 		System.out.println("4. add belonings to victim");
-		System.out.println("5. Inquire search");
-		System.out.println("6. Inquire Creation");
-		System.out.println("7. Inquiry_log search");
-		System.out.println("8. Inquiry_log Creation");
+		System.out.println("5. Show Inquirers");
+		System.out.println("6. Create Inquire");
+		System.out.println("7. Show Inquiry_logs");
+		System.out.println("8. Create Inquiry_log");
 		System.err.println("0. Exit Program");
 	}
 	public static String makeSelection(){
 		Scanner scanner = new Scanner(System.in);
 		// System.out.print("Selection: ");
         String input = scanner.nextLine();
-		scanner.close();
 		return input;
 
 	}
@@ -163,17 +191,28 @@ public class main {
 		System.out.println("1. central worker");
 		System.out.println("2. local worker");
 	}
+	public static void showData(String data){
+		System.out.println(data);
+		System.out.print("Press Enter to continue: ");
+		makeSelection();
+
+	}
 	////////////////////////////////////////////////////////MAIN////////////////////////////////////////////////////////
 	    public static void main(String[] args) {
         set_DB_info("jdbc:postgresql://localhost/ensf380project","oop","ucalgary");
         initializeConnection();
-
+		
         String input;
 		System.out.println("-------Welcom Relief worker. What do you want to do?-------");
 		showReliefeWorkerLocations();
 		System.out.print("selection: ");
 		input = makeSelection();
-		if (input == "1") {
+
+		while (!input.equals("1") && !input.equals("2")) {
+			System.out.println("Invalid choice. Please enter a valid option.");
+			input = makeSelection();
+		}
+		if (input.equals("1")) {
 			central = true;
 			local = false;
 			location = null;
@@ -184,7 +223,7 @@ public class main {
 			String locAddress = makeSelection();
 			location = new Location(locName, locAddress);
 
-		}else if (input == "2") {
+		}else if (input.equals("2")) {
 			central = false;
 			local = true;
 			System.err.println("what location are you from?");
@@ -194,8 +233,8 @@ public class main {
 			String locAddress = makeSelection();
 			location = new Location(locName, locAddress);
 		}
-		while (input != "0") {
-			shoMainMenu();
+		while (!input.equals("0")) {
+			showMainMenu();
 			System.out.println("selection: ");
 			input = makeSelection();
 
@@ -203,12 +242,93 @@ public class main {
 				case "1":
 					
 					break;
+					
 				case "2":
+					
+					break;
+					
+				case "3":
+					
+					break;
+					
+				case "4":
+					
+					break;
+					
+				case "5":
+					showData(selectAllNames("INQUIRER"));
+					break;
+					
+				case "6":
+					try {
+						System.out.print("Inquirer_ID: ");
+						input = makeSelection();
+						inquirerID = Integer.parseInt(input);
+						System.out.print("Inquirer First name: ");
+						String fName = makeSelection();
+						System.out.print("Inquirer Last name: ");
+						String lName = makeSelection();
+						System.out.print("Inquirer Phone number (XXX-XXX-XXXX): ");
+						String phoneNum = makeSelection();
+						// System.out.print("Inquirer info: ");
+						// String info = makeSelection();
+						currenInquirer = new Inquirer(fName, lName, phoneNum, phoneNum);
+						
+						insertInquirer(inquirerID, currenInquirer.getFirstName(), currenInquirer.getLastName(), currenInquirer.getServicesPhoneNum());
+						
+					} catch (Exception e) {
+						System.err.println(e);
+					}
+					break;
+					
+				case "7":
+					try {
+						showData(selectAllNames("INQUIRYLOG"));
+					} catch (Exception e) {
+						System.err.println(e);
+					}
+					
+					break;
+				case "8":
+					try {
+						System.out.println("do you want to use last entered Inquirer with ID: "+ inquirerID);
+						if (currenInquirer != null) {
+							System.out.println("Name: " + currenInquirer.getFirstName() +" " + currenInquirer.getLastName());
+						}
+						
+						System.out.print("Y/N: ");
+						input = makeSelection().toLowerCase();
 
-					 break;
-			
+						if(input.equals("n")){
+							System.out.print("Inquirer_ID: ");
+							input = makeSelection();
+							inquirerID = Integer.parseInt(input);
+							currenInquirer = null;
+						}
+
+						System.out.print("InquiryLog_ID: ");
+						input = makeSelection();
+						int inquiryLog_ID = Integer.parseInt(input);
+
+						System.out.print("Enter Date(YYYY-MM-DD): ");
+						String dateString = makeSelection();
+						java.util.Date utilDate = dateFormat.parse(dateString);
+						sqlDate = new Date(utilDate.getTime());
+
+						System.out.print("Enter Inquiry details: ");
+						String details = makeSelection();
+						
+						insertInquiry_Log(inquiryLog_ID, inquirerID, sqlDate, details);
+
+					} catch (Exception e) {
+						System.err.println(e);
+					}	
+					break;
+				case("0"):
+
+					break;
 				default:
-					System.out.println("Invalid choice. Input valid option.");
+					System.out.println("Invalid choice. Please enter a valid option.");
 					break;
 			}
 			
