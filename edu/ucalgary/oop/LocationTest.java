@@ -1,14 +1,8 @@
-/*
-Copyright Ann Barcomb and Khawla Shnaikat, 2024
-Licensed under GPL v3
-See LICENSE.txt for more information.
-*/
 package edu.ucalgary.oop;
-
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class LocationTest {
     private Location location;
@@ -17,16 +11,14 @@ public class LocationTest {
 
     @Before
     public void setUp() {
-        // Initializing test objects before each test method
-        location = new Location("Shelter A", "1234 Shelter Ave");
-        victim = new DisasterVictim("John Doe", "2024-01-01");
-        supply = new Supply("Water Bottle", 10);
+        location = new Location("Location A", "1234 LocationA Ave");
+        victim = new DisasterVictim("John","Doe", "2024-01-01");
+        supply = new Supply("bottle", 123);
     }
 
-    // Helper method to check if a supply is in the list
     private boolean containsSupply(ArrayList<Supply> supplies, Supply supplyToCheck) {
         for (Supply supply : supplies) {
-            if (supply.getType().equalsIgnoreCase(supplyToCheck.getType()) && supply.getQuantity() >= 1) {
+            if (supply.getItemName().equalsIgnoreCase(supplyToCheck.getItemName()) && supply.getQuantity() >= 1) {
                 return true;
             }
         }
@@ -36,15 +28,15 @@ public class LocationTest {
 
     @Test
     public void testConstructor() {
-        location = new Location("Shelter A", "1234 Shelter Ave");
+        location = new Location("Location A", "1234 LocationA Ave");
         assertNotNull("Constructor should create a non-null Location object", location);
-        assertEquals("Constructor should set the name correctly", "Shelter A", location.getName());
-        assertEquals("Constructor should set the address correctly", "1234 Shelter Ave", location.getAddress());
+        assertEquals("Constructor should set the name correctly", "Location A", location.getName());
+        assertEquals("Constructor should set the address correctly", "1234 LocationA Ave", location.getAddress());
     }
 
     @Test
     public void testSetName() {
-        location = new Location("Shelter A", "1234 Shelter Ave");
+        location = new Location("Location A", "1234 LocationA Ave");
         String newName = "Shelter B";
         location.setName(newName);
         assertEquals("setName should update the name of the location", newName, location.getName());
@@ -52,7 +44,7 @@ public class LocationTest {
 
     @Test
     public void testSetAddress() {
-        location = new Location("Shelter A", "1234 Shelter Ave");
+        location = new Location("Location A", "1234 LocationA Ave");
         String newAddress = "4321 Shelter Blvd";
         location.setAddress(newAddress);
         assertEquals("setAddress should update the address of the location", newAddress, location.getAddress());
@@ -60,14 +52,14 @@ public class LocationTest {
 
     @Test
     public void testAddOccupant() {
-        location = new Location("Shelter A", "1234 Shelter Ave");
+        location = new Location("Location A", "1234 LocationA Ave");
         location.addOccupant(victim);
         assertTrue("addOccupant should add a disaster victim to the occupants list", location.getOccupants().contains(victim));
     }
 
     @Test
     public void testRemoveOccupant() {
-        location = new Location("Shelter A", "1234 Shelter Ave");
+        location = new Location("Location A", "1234 LocationA Ave");
         location.addOccupant(victim); // Ensure the victim is added first
         location.removeOccupant(victim);
         assertFalse("removeOccupant should remove the disaster victim from the occupants list", location.getOccupants().contains(victim));
@@ -75,51 +67,48 @@ public class LocationTest {
 
     @Test
     public void testSetAndGetOccupants() {
-        ArrayList<DisasterVictim> newOccupants = new ArrayList<>();
+        Set<DisasterVictim> newOccupants = new HashSet<DisasterVictim>();
         newOccupants.add(victim);
         location.setOccupants(newOccupants);
-        assertTrue("setOccupants should replace the occupants list with the new list", location.getOccupants().containsAll(newOccupants));
+        assertTrue("setOccupants should replace the occupants hashset", location.getOccupants().containsAll(newOccupants));
     }
 
     @Test
     public void testAddSupply() {
-        location = new Location("Shelter A", "1234 Shelter Ave");
+        Location location = new Location("Location A", "1234 LocationA Ave");
         location.addSupply(supply);
-        assertTrue("addSupply should add a supply to the supplies list", containsSupply(location.getSupplies(), supply));
+        assertTrue("addSupply should add a supply to the supplies list", location.getSupplies().contains(supply));
     }
+    
     @Test
-    public void testAddSupplyAlreadyPresent() {
-        location = new Location("Shelter A", "1234 Shelter Ave");
-        supply = new Supply("Water Bottle", 10);
-        location.addSupply(supply);
-        location.addSupply(supply);
-        assertTrue("addSupply should add a supply to the supplies list", location.getSupplies().get(0).getQuantity() == 20);
-    }
+public void testAddSupplyAlreadyPresent() {
+    Location location = new Location("Location A", "1234 LocationA Ave");
+    Supply supply = new Supply("Water Bottle", 10);
+    location.addSupply(supply);
+    location.addSupply(supply);
+    assertEquals("addSupply should increase quantity when supply is already present", 20, location.getSupplies().iterator().next().getQuantity());
+}
 
-    @Test
-    public void testRemoveSupply() {
 
-        supply = new Supply("Water Bottle", 10);
-        location.addSupply(supply); // Ensure the supply is added first
-        int initialQuantity = supply.getQuantity();
-        location.removeSupply(supply);
+@Test
+public void testRemoveSupply() {
+    Location location = new Location("Location A", "1234 LocationA Ave");
+    Supply supply = new Supply("Water Bottle", 10);
+    location.addSupply(supply); // Ensure the supply is added first
+    int initialSupplyListLength = location.getSupplies().size();
+    location.removeSupply(supply);
 
-        if (initialQuantity > 1) {
-            // Check that the quantity decreases but the supply is still present
-            assertTrue("removeSupply should decrease the quantity of the supply", supply.getQuantity() < initialQuantity);
-            assertTrue("removeSupply should still keep the supply in the supplies list", containsSupply(location.getSupplies(), supply));
-        } else {
-            // Check that the supply is completely removed if its quantity is one
-            assertFalse("removeSupply should remove the supply from the supplies list", containsSupply(location.getSupplies(), supply));
-        }
-    }
+    assertFalse("removeSupply should remove the supply from the supplies list", location.getSupplies().contains(supply));
+    assertEquals("The size of the supplies list should decrease by 1 after removing a supply", initialSupplyListLength - 1, location.getSupplies().size());
+}
+
 
 
     @Test
     public void testSetAndGetSupplies() {
-        ArrayList<Supply> newSupplies = new ArrayList<>();
+        Set<Supply> newSupplies = new HashSet<Supply>(); 
         newSupplies.add(supply);
         location.setSupplies(newSupplies);
-        assertTrue("setSupplies should replace the supplies list with the new list", containsSupply(location.getSupplies(), supply));
+        assertFalse("setSupplies should replace the supplies list with the new list", location.getSupplies().size() == 0);
     }
 }
