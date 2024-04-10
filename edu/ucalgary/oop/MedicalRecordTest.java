@@ -1,21 +1,14 @@
-/*
-Copyright Ann Barcomb and Khawla Shnaikat, 2024
-Licensed under GPL v3
-See LICENSE.txt for more information.
-*/
 package edu.ucalgary.oop;
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class MedicalRecordTest {
-
-    Location expectedLocation = new Location("ShelterA", "140 8 Ave NW ");
-    private String expectedTreatmentDetails = "Broken arm treated";
+    private String expectedConditionname = "Ligma";
+    private String expectedTreatmentDetails = "this is treatment....";
     private String expectedDateOfTreatment = "2024-01-19";
     private String validDateOfTreatment = "2024-02-04";
     private String inValidDateOfTreatment = "2024/02/04";
-    MedicalRecord medicalRecord = new MedicalRecord(expectedLocation, expectedTreatmentDetails, expectedDateOfTreatment);
+    MedicalRecord medicalRecord = new MedicalRecord(expectedConditionname, expectedTreatmentDetails, expectedDateOfTreatment);
 
 
     @Test
@@ -24,16 +17,16 @@ public class MedicalRecordTest {
     }	
 	
     @Test
-    public void testGetLocation() {
-    assertEquals("getLocation should return the correct Location", expectedLocation, medicalRecord.getLocation());
+    public void testGetConditionName() {
+        assertEquals("getConditionName should return the correct treatment details", expectedConditionname, medicalRecord.getConditionName());
     }
-
     @Test
-    public void testSetLocation() {
-	Location newExpectedLocation = new Location("Shelter B", "150 8 Ave NW ");
-	medicalRecord.setLocation(newExpectedLocation);
-        assertEquals("setLocation should update the Location", newExpectedLocation.getName(), medicalRecord.getLocation().getName());
+    public void testSetConditionName() {
+        String newExpectedConditionName = "Ligma2";
+        medicalRecord.setConditionName(newExpectedConditionName);
+        assertEquals("setConditionName should update the treatment details", newExpectedConditionName, medicalRecord.getConditionName());
     }
+    
 
     @Test
     public void testGetTreatmentDetails() {

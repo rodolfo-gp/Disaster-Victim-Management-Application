@@ -1,5 +1,4 @@
 package edu.ucalgary.oop;
-
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -61,7 +60,7 @@ public class ReliefServiceTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testSetDateOfInquiryWithInvalidDate() {
-        reliefService.setDateOfInquiry(invalidDate); // This should throw IllegalArgumentException due to invalid format
+        reliefService.setDateOfInquiry(invalidDate);
     }
 
     @Test
