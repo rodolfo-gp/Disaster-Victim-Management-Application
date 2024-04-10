@@ -30,7 +30,7 @@ public class Inquirer {
      * @param phone     The services phone number of the inquirer.
      * @param info      Additional information related to the inquiry.
      */
-    public Inquirer(String firstName, String lastName, String phone, String info) {
+    public Inquirer(String firstName, String lastName, String phone) {
         this.fName = firstName;
         this.lName = lastName;
         this.phone = phone;
