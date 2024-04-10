@@ -188,4 +188,15 @@ public class Location {
         // If the victim is not found in the occupants list
         throw new IllegalArgumentException("Victim not found at this location.");
     }
+    /**
+     * Prints information about the occupants of the location.
+     */
+    public void printOccupantsInfo() {
+        System.out.println("Occupants of " + name + ":");
+        for (DisasterVictim occupant : occupants) {
+            System.out.println("ID: " + occupant.getAssignedSocialID() +
+                               ", Name: " + occupant.getFirstName() +
+                               " " + occupant.getLastName());
+        }
+    }
 }

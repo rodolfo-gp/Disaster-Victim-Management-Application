@@ -25,7 +25,7 @@ public class DisasterVictim {
     private final String victimEntryDate;
     private String gender;
     private String notes;
-    private Set<DietaryRestriction> dietaryRestrictions = new HashSet<>();
+    private String dietaryRestrictions;
     public static int victim_ID_Counter = 0;
 
 
@@ -305,58 +305,20 @@ public class DisasterVictim {
         this.gender = gender;
     }
 
-    /**
-     * Retrieves the set of dietary restrictions of the victim.
-     * 
-     * @return The set of dietary restrictions of the victim.
-     */
-    public Set<DietaryRestriction> getDietaryRestrictions() {
-        return dietaryRestrictions;
-    }
+   
 
     /**
      * Sets the dietary restrictions of the victim.
      * 
      * @param dietaryRestrictions The set of dietary restrictions to be set.
      */
-   public void setDietaryRestrictions(Set<DietaryRestriction> dietaryRestrictions) {
-    this.dietaryRestrictions = dietaryRestrictions;
+   public void setDietaryRestrictions(String DR) {
+    this.dietaryRestrictions = DR;
    }
-   public enum DietaryRestriction {
-    AVML,
-    DBML,
-    GFML,
-    KSML,
-    LSML,
-    MOML,
-    PFML,
-    VGML,
-    VJML
-    }
-    /**
-     * Adds a dietary restriction to the victim's set of dietary restrictions.
-     * 
-     * @param restriction The dietary restriction to be added.
-     */
-    public void addDietaryRestrictions(String restriction) {
-
-        switch (restriction) {
-            case "AVML":
-            case "DBML":
-            case "GFML":
-            case "KSML":
-            case "LSML":
-            case "MOML":
-            case "PFML":
-            case "VGML":
-            case "VJML":
-                this.dietaryRestrictions.add(DietaryRestriction.valueOf(restriction));
-                break;
-            default:
-                System.out.println("The given dietary restriction was not one of the valid options we can currently provide for (Please enter in 4 captial letters)");
-                break;
-        }
-    }
+   
+   public String getDietaryRestrictions(){
+        return this.dietaryRestrictions;
+   }
 }
 
 

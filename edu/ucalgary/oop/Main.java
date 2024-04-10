@@ -1,5 +1,5 @@
 package edu.ucalgary.oop;
-import java.util.Scanner;
+import java.util.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
@@ -24,9 +24,7 @@ public class Main {
 	public static Date sqlDate = null;
 
     public static void set_DB_info(String url, String user, String pw){
-		// Database URL
 		DBURL = url;
-		//  Database credentials
 		USERNAME = user;
 		PASSWORD = pw;
 	}
@@ -170,12 +168,13 @@ public class Main {
 		return -1;
 		
 	}
+	//////////////////////////////////Other Functions/////////////////////////////////////////////////////
 	public static void showMainMenu(){
 		System.out.println("What do you want to do?");
 		System.out.println("1. add Disaster Victms");
 		System.out.println("2. Show disaster victims");
-		System.out.println("3. add supply to location");
-		System.out.println("4. add belonings to victim");
+		//System.out.println("3. add supply to location");
+		// System.out.println("4. add belonings to victim");
 		System.out.println("5. Show Inquirers");
 		System.out.println("6. Create Inquire");
 		System.out.println("7. Show Inquiry_logs");
@@ -242,11 +241,125 @@ public class Main {
 
 			switch (input) {
 				case "1":
+				try {
+					System.out.print("Enter First Name: ");
+					String fname = makeSelection();
+					System.out.print("Enter Last Name: ");
+					String lName = makeSelection();
+					System.out.print("Enter Date(YYYY-MM-DD): ");
+					String date = makeSelection();
+
+					DisasterVictim  victim = new DisasterVictim(fname, lName, date);
+
+					System.out.print("Victims age(years, enter int): ");
+					input = makeSelection();
+					int age = Integer.parseInt(input);
+					victim.setAge(age);
+
+					System.out.print("Enter Victims gender: ");
+					String gender = makeSelection();
+					victim.setGender(gender);
+
+					System.out.print("Enter Victims details/notes: ");
+					String notes = makeSelection();
+					victim.setNotes(notes);
+
+					System.out.print("Enter Victims DiataryRestrictions(List all as String): ");
+					String dr = makeSelection();
+					victim.setDietaryRestrictions(dr);
+
+					System.out.print("Want to family Relations(Y/N): ");
+					input = makeSelection().toLowerCase();
+
+					if(input.equals("y")){//adding Family Relations
+						Set<FamilyRelation> familyRelations = new HashSet<>();
+						FamilyRelation fR;
+						String relation;
+						DisasterVictim person;
+						while (true) {
+
+							System.err.println("Enter Other persons Info");
+							System.out.print("Enter First Name(-1 to exit): ");
+							fname = makeSelection();
+							if (fname.equals("-1")) {
+								break;
+							}
+							System.out.print("Enter Last Name: ");
+							lName = makeSelection();
+							System.out.print("Enter relation to this person: ");
+							relation = makeSelection();
+
+							person = new DisasterVictim(fname, lName, date);
+							fR = new FamilyRelation(relation, person);
+							familyRelations.add(fR);
+						}
+						victim.setFamilyRelations(familyRelations);
+					}
+					System.out.print("Want to Medical Records(Y/N): ");
+					input = makeSelection().toLowerCase();
+
+					if(input.equals("y")){//adding Medical Records
+						Set<MedicalRecord> medicalRecords = new HashSet<>();
+						MedicalRecord mR;
+						String cN;
+						String tD;
+						String dOT;
+						while (true) {
+
+							System.err.println("Enter Medical Record Info");
+							System.out.print("Enter Condition Name(-1 to exit): ");
+							cN = makeSelection();
+							if (cN.equals("-1")) {
+								break;
+							}
+							System.out.print("Treatment Details: ");
+							tD = makeSelection();
+							System.out.print("Date of Treatment: ");
+							dOT = makeSelection();
+
+							mR = new MedicalRecord(cN, tD, dOT);
+							medicalRecords.add(mR);
+						}
+						victim.setMedicalRecords(medicalRecords);
+					}
+
+					System.out.print("Want to add personal Belonings(Y/N): ");
+					input = makeSelection().toLowerCase();
+
+					if(input.equals("y")){//adding belonings
+						Set<Supply> personalBelongings = new HashSet<>();
+						Supply pB;
+						String itemName;
+						int quantity;
+						while (true) {
+
+							System.out.print("Item Name(Enter '-1' To stop): ");
+							itemName = makeSelection();
+							if (itemName.equals("-1")) {
+								break;
+							}
+							System.out.print("Quiantity of Item: ");
+							input = makeSelection();
+							quantity = Integer.parseInt(input);
+
+							pB = new Supply(itemName, quantity);
+							personalBelongings.add(pB);
+							System.out.println("Added personal belonong to person");		
+						}
+						victim.setPersonalBelongings(personalBelongings);
+					}
+					location.addOccupant(victim);
+					currentDisasterVictim = victim;
+
+
+				} catch (Exception e) {
+					System.err.println(e);
+				}
 					
 					break;
 					
 				case "2":
-					
+					location.printOccupantsInfo();
 					break;
 					
 				case "3":
