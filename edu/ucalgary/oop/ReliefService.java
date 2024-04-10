@@ -148,7 +148,7 @@ public class ReliefService {
      * @return Details of the inquiry log.
      */
     public String getLogDetails() {
-        return "Inquirer: " + inquirer.getFirstName() + 
+        return "Inquirer: " + inquirer.getFirstName() + ", "+ inquirer.getLastName()+
                ", Missing Person: " + victim.getFirstName() + 
                ", Date of Inquiry: " + dateOfInquiry + 
                ", Info Provided: " + info + 
