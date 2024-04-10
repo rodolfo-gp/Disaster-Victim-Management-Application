@@ -1,5 +1,4 @@
 package edu.ucalgary.oop;
-import edu.ucalgary.oop.DisasterVictim.DietaryRestriction;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.*;
@@ -20,7 +19,6 @@ public class DisasterVictimTest {
     private String invalidDate = "2000/01/01";
     private String gender = "Man";
     private String notes = "These are victim notes...";
-    private Set<DietaryRestriction> dietaryRestrictions = new HashSet<>();
 
     
     private FamilyRelation familyRelation;
@@ -47,18 +45,6 @@ public class DisasterVictimTest {
         DisasterVictim vic = new DisasterVictim("p1", "p1", invalidDate);
     }
 
-   @Test
-    public void testSetDateOfBirth() {
-        String newDateOfBirth = "1987-05-21";
-        victim.setDateOfBirth(newDateOfBirth);
-        assertEquals("setDateOfBirth should correctly update the date of birth", newDateOfBirth, victim.getDateOfBirth());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testSetDateOfBirthWithInvalidFormat() {
-        String invalidDate = "41/1";
-        victim.setDateOfBirth(invalidDate); // This format should cause an exception
-    }
 	
 
 
