@@ -31,7 +31,7 @@ testObjectCreation -> means testing Supply constructor:
 */
     @Test
     public void testGetType() {
-        assertEquals("getType should return the correct type", expectedType, supply.getType());
+        assertEquals("getType should return the correct type", expectedType, supply.getItemName());
     }
 /*testSetType(): 
    - What we need: To ensure the "setType()" method correctly updates the Supply type.
@@ -39,9 +39,9 @@ testObjectCreation -> means testing Supply constructor:
    - Expected result: "Food".
 */
     @Test
-    public void testSetType() {
-        supply.setType("Food");
-        assertEquals("setType should update the type", "Food", supply.getType());
+    public void testSetItemName() {
+        supply.setItemName("Food");
+        assertEquals("setType should update the type", "Food", supply.getItemName());
     }
 
 /*testGetQuantity(): 

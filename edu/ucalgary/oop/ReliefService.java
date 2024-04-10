@@ -1,46 +1,88 @@
 package edu.ucalgary.oop;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Handles how inquirers' requests are handled.
+ * 
+ * @author Rodolfo Gil-Pereira
+ */
 public class ReliefService {
     private Inquirer inquirer;
-    private DisasterVictim missingPerson;
+    private DisasterVictim victim;
     private String dateOfInquiry;
-    private String infoProvided;
+    private String info;
     private Location lastKnownLocation;
 
-    // Constructor
-    public ReliefService(Inquirer inquirer, DisasterVictim missingPerson, String dateOfInquiry, String infoProvided, Location lastKnownLocation) {
+    /**
+     * Constructs a new ReliefService object.
+     * 
+     * @param inquirer         The inquirer making the request.
+     * @param victim           The missing person for whom the request is made.
+     * @param dateOfInquiry    The date of the inquiry in the format YYYY-MM-DD.
+     * @param info             Additional information provided with the inquiry.
+     * @param lastKnownLocation The last known location of the missing person.
+     */
+    public ReliefService(Inquirer inquirer, DisasterVictim victim, String dateOfInquiry, String info, Location lastKnownLocation) {
         this.inquirer = inquirer;
-        this.missingPerson = missingPerson;
-        setDateOfInquiry(dateOfInquiry);
-        this.infoProvided = infoProvided;
+        this.victim = victim;
+        this.dateOfInquiry = dateOfInquiry;
+        this.info = info;
         this.lastKnownLocation = lastKnownLocation;
     }
 
-    // Getter and setter for inquirer
+    /**
+     * Gets the inquirer.
+     * 
+     * @return The inquirer.
+     */
     public Inquirer getInquirer() {
         return inquirer;
     }
 
+    /**
+     * Sets the inquirer.
+     * 
+     * @param inquirer The inquirer to set.
+     */
     public void setInquirer(Inquirer inquirer) {
         this.inquirer = inquirer;
     }
 
-    // Getter and setter for missingPerson
-    public DisasterVictim getMissingPerson() {
-        return missingPerson;
+    /**
+     * Gets the missing person.
+     * 
+     * @return The missing person.
+     */
+    public DisasterVictim getVictim() {
+        return victim;
     }
 
-    public void setMissingPerson(DisasterVictim missingPerson) {
-        this.missingPerson = missingPerson;
+    /**
+     * Sets the missing person.
+     * 
+     * @param victim The missing person to set.
+     */
+    public void setVictim(DisasterVictim victim) {
+        this.victim = victim;
     }
 
-    // Getter and setter for dateOfInquiry
+    /**
+     * Gets the date of the inquiry.
+     * 
+     * @return The date of the inquiry.
+     */
     public String getDateOfInquiry() {
         return dateOfInquiry;
     }
 
+    /**
+     * Sets the date of the inquiry.
+     * 
+     * @param dateOfInquiry The date of the inquiry to set in the format YYYY-MM-DD.
+     * @throws IllegalArgumentException If the date format is invalid.
+     */
     public void setDateOfInquiry(String dateOfInquiry) {
         // Check if the dateOfInquiry string matches the expected date format
         if (!isValidDateFormat(dateOfInquiry)) {
@@ -49,25 +91,48 @@ public class ReliefService {
         this.dateOfInquiry = dateOfInquiry;
     }
 
-    // Getter and setter for infoProvided
-    public String getInfoProvided() {
-        return infoProvided;
+    /**
+     * Gets the additional information provided with the inquiry.
+     * 
+     * @return The additional information provided.
+     */
+    public String getInfo() {
+        return info;
     }
 
-    public void setInfoProvided(String infoProvided) {
-        this.infoProvided = infoProvided;
+    /**
+     * Sets the additional information provided with the inquiry.
+     * 
+     * @param info The additional information provided to set.
+     */
+    public void setInfo(String info) {
+        this.info = info;
     }
 
-    // Getter and setter for lastKnownLocation
+    /**
+     * Gets the last known location of the missing person.
+     * 
+     * @return The last known location.
+     */
     public Location getLastKnownLocation() {
         return lastKnownLocation;
     }
 
+    /**
+     * Sets the last known location of the missing person.
+     * 
+     * @param lastKnownLocation The last known location to set.
+     */
     public void setLastKnownLocation(Location lastKnownLocation) {
         this.lastKnownLocation = lastKnownLocation;
     }
 
-    // Helper method to check if a string matches the YYYY-MM-DD date format
+    /**
+     * Checks if a string matches the YYYY-MM-DD date format.
+     * 
+     * @param date The date string to check.
+     * @return True if the date string is in the correct format, false otherwise.
+     */
     private boolean isValidDateFormat(String date) {
         try {
             LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
@@ -76,11 +141,17 @@ public class ReliefService {
             return false;
         }
     }
+
+    /**
+     * Gets details of the inquiry log.
+     * 
+     * @return Details of the inquiry log.
+     */
     public String getLogDetails() {
-       return "Inquirer: " + inquirer.getFirstName() + 
-           ", Missing Person: " + missingPerson.getFirstName() + 
-           ", Date of Inquiry: " + dateOfInquiry + 
-           ", Info Provided: " + infoProvided + 
-           ", Last Known Location: " + lastKnownLocation.getName();
-}
+        return "Inquirer: " + inquirer.getFirstName() + 
+               ", Missing Person: " + victim.getFirstName() + 
+               ", Date of Inquiry: " + dateOfInquiry + 
+               ", Info Provided: " + info + 
+               ", Last Known Location: " + lastKnownLocation.getName();
+    }
 }

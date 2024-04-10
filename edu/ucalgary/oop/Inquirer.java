@@ -1,21 +1,65 @@
 package edu.ucalgary.oop;
-
+/**
+ * Represents an individual who is inquiring about possible disaster victims.
+ * 
+ * <p>
+ * An Inquirer object is immutable once created. The first name, last name, and services phone number
+ * are final fields and cannot be modified after object creation.
+ * </p>
+ * 
+ * <p>
+ * Inquirers can provide additional information related to their inquiries.
+ * </p>
+ * 
+ * <p>
+ * This class is intended for non-victims who are searching for potential victims they know to help find them.
+ * </p>
+ * 
+ * @author Rodolfo Gil
+ */
 public class Inquirer {
-    private final String FIRST_NAME;
-    private final String LAST_NAME;
-    private final String INFO;
-    private final String SERVICES_PHONE;
+    private final String fName;
+    private final String lName;
+    private final String phone;
 
+    /**
+     * Constructs a new Inquirer object with the specified information.
+     * 
+     * @param firstName The first name of the inquirer.
+     * @param lastName  The last name of the inquirer.
+     * @param phone     The services phone number of the inquirer.
+     * @param info      Additional information related to the inquiry.
+     */
     public Inquirer(String firstName, String lastName, String phone, String info) {
-        this.FIRST_NAME = firstName;
-        this.LAST_NAME = lastName;
-        this.SERVICES_PHONE = phone;
-        this.INFO = info;
-
+        this.fName = firstName;
+        this.lName = lastName;
+        this.phone = phone;
     }
 
-    public String getFirstName() { return this.FIRST_NAME; }
-    public String getLastName() { return this.LAST_NAME; }
-    public String getServicesPhoneNum() { return this.SERVICES_PHONE; }
-    public String getInfo() { return this.INFO; }
+    /**
+     * Retrieves the first name of the inquirer.
+     * 
+     * @return The first name of the inquirer.
+     */
+    public String getFirstName() {
+        return this.fName;
+    }
+
+    /**
+     * Retrieves the last name of the inquirer.
+     * 
+     * @return The last name of the inquirer.
+     */
+    public String getLastName() {
+        return this.lName;
+    }
+
+    /**
+     * Retrieves the services phone number of the inquirer.
+     * 
+     * @return The services phone number of the inquirer.
+     */
+    public String getServicesPhoneNum() {
+        return this.phone;
+    }
 }

@@ -7,4 +7,4 @@ To use the app interface first:
 
 then:
     run:
-    java -cp .;postgresql-42.7.2.jar edu.ucalgary.oop.Main 
+    java -cp .;postgresql-42.7.2.jar edu.ucalgary.oop.Main

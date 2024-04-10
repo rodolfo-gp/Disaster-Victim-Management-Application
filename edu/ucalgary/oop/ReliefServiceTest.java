@@ -1,8 +1,3 @@
-/*
-Copyright Ann Barcomb and Khawla Shnaikat, 2024
-Licensed under GPL v3
-See LICENSE.txt for more information.
-*/
 package edu.ucalgary.oop;
 
 import org.junit.Before;
@@ -40,7 +35,7 @@ public class ReliefServiceTest {
 
     @Test
     public void testGetMissingPerson() {
-        assertEquals("Missing person should match the one set in setup", missingPerson, reliefService.getMissingPerson());
+        assertEquals("Missing person should match the one set in setup", missingPerson, reliefService.getVictim());
     }
 
     @Test
@@ -50,7 +45,7 @@ public class ReliefServiceTest {
 
     @Test
     public void testGetInfoProvided() {
-        assertEquals("Info provided should match the one set in setup", expectedInfoProvided, reliefService.getInfoProvided());
+        assertEquals("Info provided should match the one set in setup", expectedInfoProvided, reliefService.getInfo());
     }
 
     @Test
