@@ -173,7 +173,7 @@ public class Main {
 		System.out.println("What do you want to do?");
 		System.out.println("1. add Disaster Victms");
 		System.out.println("2. Show disaster victims");
-		//System.out.println("3. add supply to location");
+		System.out.println("3. Search Disaster Victim");
 		// System.out.println("4. add belonings to victim");
 		System.out.println("5. Show Inquirers");
 		System.out.println("6. Create Inquire");
@@ -314,7 +314,7 @@ public class Main {
 							}
 							System.out.print("Treatment Details: ");
 							tD = makeSelection();
-							System.out.print("Date of Treatment: ");
+							System.out.print("Date of Treatment(YYYY-MM-DD): ");
 							dOT = makeSelection();
 
 							mR = new MedicalRecord(cN, tD, dOT);
@@ -363,7 +363,10 @@ public class Main {
 					break;
 					
 				case "3":
-					
+					System.out.print("Enter Victim id(int): ");
+					input = makeSelection();
+					location.printOccupantDataById(Integer.parseInt(input));
+					input = "qq";
 					break;
 					
 				case "4":

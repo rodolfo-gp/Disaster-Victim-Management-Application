@@ -199,4 +199,25 @@ public class Location {
                                " " + occupant.getLastName());
         }
     }
+    /**
+     * Search for an occupant with the specified ID and print its data.
+     * If the occupant is found, print its ID, first name, and last name.
+     * If not found, print a message indicating that the occupant with the specified ID was not found.
+     * 
+     * @param victimId The ID of the occupant to search for.
+     */
+    public void printOccupantDataById(int victimId) {
+        boolean found = false;
+        for (DisasterVictim occupant : occupants) {
+            if (occupant.getAssignedSocialID() == victimId) {
+                found = true;
+                occupant.printVictimInfo();
+                // You can print other data of the occupant here
+                break; // Exit the loop once the occupant is found
+            }
+        }
+        if (!found) {
+            System.out.println("Occupant with ID " + victimId + " not found.");
+        }
+    }
 }

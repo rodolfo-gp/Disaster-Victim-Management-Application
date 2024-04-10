@@ -10,4 +10,5 @@ then:
     run:
     java -cp .;postgresql-42.7.2.jar edu.ucalgary.oop.Main
 
-To generate developer documentation: 
+To Read developer documentation:
+    double Click index.html

@@ -15,17 +15,17 @@ import java.util.Set;
  */
 public class DisasterVictim {
     
-    private String fName;
-    private String lName;
-    private int age;
+    private String fName = "";
+    private String lName = "";
+    private int age = 0;
     private final int social_Id;
     private Set<FamilyRelation> familyRelations = new HashSet<>();
     private Set<MedicalRecord> medicalRecords = new HashSet<>();
     private Set<Supply> personalBelongings = new HashSet<>();
     private final String victimEntryDate;
-    private String gender;
-    private String notes;
-    private String dietaryRestrictions;
+    private String gender = "";
+    private String notes = "";
+    private String dietaryRestrictions = "";
     public static int victim_ID_Counter = 0;
 
 
@@ -319,6 +319,33 @@ public class DisasterVictim {
    public String getDietaryRestrictions(){
         return this.dietaryRestrictions;
    }
+   public void printVictimInfo() {
+    System.out.println("Victim ID: " + social_Id);
+    System.out.println("First Name: " + fName);
+    System.out.println("Last Name: " + lName);
+    System.out.println("Age: " + age);
+    System.out.println("Entry Date: " + victimEntryDate);
+    System.out.println("Gender: " + gender);
+    System.out.println("Notes: " + notes);
+    System.out.println("Dietary Restrictions: " + dietaryRestrictions);
+    
+    System.out.println("Family Relations:");
+    for (FamilyRelation relation : familyRelations) {
+        System.out.println("- " + relation.getRelation() + ": " + relation.getPerson().getFirstName() + " " + relation.getPerson().getLastName());
+    }
+
+    System.out.println("Medical Records:");
+    for (MedicalRecord record : medicalRecords) {
+        System.out.println("- Condition: " + record.getConditionName());
+        System.out.println("  Treatment Details: " + record.getTreatmentDetails());
+        System.out.println("  Date of Treatment: " + record.getDateOfTreatment());
+    }
+
+    System.out.println("Personal Belongings:");
+    for (Supply supply : personalBelongings) {
+        System.out.println("- " + supply.getItemName() + ": " + supply.getQuantity());
+    }
+}
 }
 
 
