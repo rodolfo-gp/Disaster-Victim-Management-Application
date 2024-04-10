@@ -16,16 +16,6 @@ public class LocationTest {
         supply = new Supply("bottle", 123);
     }
 
-    private boolean containsSupply(ArrayList<Supply> supplies, Supply supplyToCheck) {
-        for (Supply supply : supplies) {
-            if (supply.getItemName().equalsIgnoreCase(supplyToCheck.getItemName()) && supply.getQuantity() >= 1) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-
     @Test
     public void testConstructor() {
         location = new Location("Location A", "1234 LocationA Ave");

@@ -16,7 +16,7 @@ public class ReliefServiceTest {
     @Before
     public void setUp() {
         // Assuming Inquirer, DisasterVictim, and Location have constructors as implied
-        inquirer = new Inquirer("John", "Alex", "1234567890", "Looking for family member");
+        inquirer = new Inquirer("John", "Alex", "1234567890");
         missingPerson = new DisasterVictim("Jane", "Alex" , "2024-01-25");
         lastKnownLocation = new Location("University of Calgary", "2500 University Dr NW");
         reliefService = new ReliefService(inquirer, missingPerson, validDate, expectedInfoProvided, lastKnownLocation);

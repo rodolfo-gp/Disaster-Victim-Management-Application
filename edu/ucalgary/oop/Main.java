@@ -274,7 +274,7 @@ public class Main {
 						String phoneNum = makeSelection();
 						// System.out.print("Inquirer info: ");
 						// String info = makeSelection();
-						currenInquirer = new Inquirer(fName, lName, phoneNum, phoneNum);
+						currenInquirer = new Inquirer(fName, lName, phoneNum);
 						
 						insertInquirer(inquirerID, currenInquirer.getFirstName(), currenInquirer.getLastName(), currenInquirer.getServicesPhoneNum());
 						
