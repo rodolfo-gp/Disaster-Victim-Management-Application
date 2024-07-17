@@ -1,4 +1,4 @@
-Project by: Rodolfo Gil-Pereira(30183908)
+Project by: Rodolfo Gil-Pereira
 An updated copy of the UML is in this folder.
 
 note: be in root dir
