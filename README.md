@@ -9,16 +9,17 @@ This terminal-based application assists social workers in managing disaster vict
 An updated copy of the UML diagram is included in this folder.
 
 ## Instructions
-Assuming DB is linked...
-### Compile the Application
-To compile the application, ensure you are in the root directory and run the following command in your terminal:
+Assuming the database is linked...
 
-```sh
-javac -cp .;postgresql-42.7.2.jar edu/ucalgary/oop/Main.java
+### Compile and Run the Application
+1. **Compile the Application**: Ensure you are in the root directory and run the following command in your terminal:
+    ```sh
+    javac -cp .;postgresql-42.7.2.jar edu/ucalgary/oop/Main.java
+    ```
+2. **Run the Application**: After compiling, execute the following command to start the application:
+    ```sh
+    java -cp .;postgresql-42.7.2.jar edu.ucalgary.oop.Main
+    ```
 
-```
-### Run App
-```sh
-java -cp .;postgresql-42.7.2.jar edu.ucalgary.oop.Main
-
-```
+### Read Developer Documentation
+To access the developer documentation, double-click on `index.html` in the documentation folder.
