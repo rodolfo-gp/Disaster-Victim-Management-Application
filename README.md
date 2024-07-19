@@ -1,14 +1,24 @@
-Project by: Rodolfo Gil-Pereira
-An updated copy of the UML is in this folder.
+# Disaster Management Application
 
-note: be in root dir
-To use the app interface first:
-    compile:
-    javac -cp .;postgresql-42.7.2.jar edu/ucalgary/oop/Main.java
+## Project By
+- **Rodolfo Gil-Pereira**
 
-then:
-    run:
-    java -cp .;postgresql-42.7.2.jar edu.ucalgary.oop.Main
+## Description
+This terminal-based application assists social workers in managing disaster victims by providing an interface to communicate with a database. It helps track crucial information such as victims, locations, supplies, inquiries, and more. The application is designed to streamline the management process, ensuring that social workers can efficiently handle disaster response and support efforts.
 
-To Read developer documentation:
-    double Click index.html
+An updated copy of the UML diagram is included in this folder.
+
+## Instructions
+
+### Compile the Application
+To compile the application, ensure you are in the root directory and run the following command in your terminal:
+
+```sh
+javac -cp .;postgresql-42.7.2.jar edu/ucalgary/oop/Main.java
+
+```
+### Run App
+```sh
+java -cp .;postgresql-42.7.2.jar edu.ucalgary.oop.Main
+
+```
