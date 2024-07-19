@@ -9,7 +9,7 @@ This terminal-based application assists social workers in managing disaster vict
 An updated copy of the UML diagram is included in this folder.
 
 ## Instructions
-
+Assuming DB is linked...
 ### Compile the Application
 To compile the application, ensure you are in the root directory and run the following command in your terminal:
 
